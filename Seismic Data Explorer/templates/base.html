@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <div class="container-small">
+        <div class="jumbotron text-center">
+            <center>
+                <h3>Seismic Data Explorer</h3>
+            </center>
+        </div>
+    </div>
+</head>
+<body>
+    <div class=" container-small">
+        <nav class="navbar navbar-inverse justify-content-center">
+          <ul class="nav navbar-nav">
+            <li class="nav-item"><a class="navbar-brand" href="/">Home</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/earthquake">Q10. Earthquake Details by time</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/form2">Q11. Earthquake details from bounding box</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/form3">Q12. Update mag value for given range</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/form4">Q13. Add new quake information</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/form5">Q13. Remove quake information</a></li>
+           </ul>
+        </nav>
+    </div>
+    <div class="container-small">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid py-5">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('number', 'Year');
+                data.addColumn('number', 'Cost');
+                data.addColumn('string', 'Color');
+                
+                {% for item in data %}
+                    data.addRow([{{ item[0] }}, {{ item[1] }}, '{{ 'yellow' if item[1] % 2 else 'blue' }}']);
+                {% endfor %}
+
+                var options = {
+                    title: 'Year and Cost',
+                    hAxis: {title: 'Year'},
+                    vAxis: {title: 'Cost'},
+                    legend: 'none',
+                    height: window.innerHeight * 0.85,
+                    colors: ['blue', 'yellow'],
+                };
+
+                var chart = new google.visualization.ScatterChart(document.getElementById('scatter'));
+
+                function resize () {
+                    var chartDiv = document.getElementById('scatter');
+                    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+                    chartDiv.style.width = window.innerWidth+'px';
+                    chartDiv.style.height = viewHeight+'px';
+                    chart.draw(data, options);
+                }
+                window.onload = resize();
+                window.onresize = resize;
+            }
+        </script>
+        <div id="scatter"></div>
+    </div>
+{% endblock %}

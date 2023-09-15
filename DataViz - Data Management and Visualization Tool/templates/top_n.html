@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid py-5">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.n.label }} {{ form.n() }}
+            </div>
+            {{ form.submit() }}
+        </form>
+
+        {% if data %}
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Abbreviation', 'Cost'],
+                        {% for item in data %}
+                            ['{{ item[0] }}', {{ item[1] }}],
+                        {% endfor %}
+                    ]);
+
+                    var options = {
+                        title: 'Top N Costs',
+                        pieHole: 0.4,
+                        pieSliceText: 'label',
+                        pieSliceTextStyle: {
+                            color: 'black',
+                        },
+                        legend: 'none',
+                        chartArea: {
+                            left: "10%",
+                            top: "10%",
+                            height: "70%",
+                            width: "80%"
+                        },
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('top_n_chart'));
+
+                    function resize () {
+                        var chartDiv = document.getElementById('top_n_chart');
+                        var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+                        chartDiv.style.width = window.innerWidth+'px';
+                        chartDiv.style.height = viewHeight+'px';
+                        chart.draw(data, options);
+                    }
+
+                    window.onload = resize();
+                    window.onresize = resize;
+                }
+            </script>
+            <div id="top_n_chart"></div>
+        {% endif %}
+    </div>
+{% endblock %}

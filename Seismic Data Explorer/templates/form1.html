@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Q10{% endblock %}
+{% block content %}
+{% if error %}
+<font color="red"> <center><h4><p class="">{{ error }}</p></h4></center></font>
+{% endif %}
+{% if form %}
+<div class="form-group">
+    <form action="/earthquake" method="POST">
+        {{ form.csrf_token }}
+        {{ form.time.label }} {{ form.time }}<br/>
+        {{ form.submit }}
+    </form>
+</div>
+{% endif %}
+{% if details %}
+<center><font color="#1e90ff"><h2>Details for Earthquake at Time {{ details[0] }}</h2></font></center>
+<p>Latitude: {{ details[1] }}</p>
+<p>Longitude: {{ details[2] }}</p>
+<p>Magnitude: {{ details[3] }}</p>
+<p>Net: {{ details[4] }}</p>
+<p>Place: {{ details[5] }}</p>
+{% endif %}
+
+{% if nearby_quakes %}
+<center><font color="#1e90ff"><h2>Nearby Earthquakes:</h2></font></center>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Latitude</th>
+            <th scope="col">Longitude</th>
+            <th scope="col">Magnitude</th>
+            <th scope="col">Net</th>
+            <th scope="col">Place</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for quake in nearby_quakes %}
+        <tr>
+            <td>{{ quake[0] }}</td>
+            <td>{{ quake[1] }}</td>
+            <td>{{ quake[2] }}</td>
+            <td>{{ quake[3] }}</td>
+            <td>{{ quake[4] }}</td>
+            <td>{{ quake[5] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

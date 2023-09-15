@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Q7{% endblock %}
+{% block content %}
+{% if error %}
+    <font color="red"> <center><h4><p class="">{{ error }}</p></h4></center></font>
+{% endif %}
+{% if form != Null %}
+<div class="form-group">
+        <form action="/form3" method="POST">
+            {{ form.csrf_token() }}
+            {{ form.lat.label }} {{ form.lat }}<br/>
+            {{ form.lon.label }} {{ form.lon }}<br/>
+            {{ form.km.label }} {{ form.km }}<br/>
+            {{ form.submit }}
+        </form>
+    </div>
+{% endif %}
+{% if data == 1 %}
+<p class="">Latitude: {{ lat }}</p>
+<p class="">Longitude: {{ lon }}</p>
+<p class="">Kilometers: {{ km }}</p>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-fixed table-wrap">
+        <caption>Earthquake Records</caption><br/>
+        <thead>
+            <tr>
+                <th scope="col">Time</th>
+                <th scope="col">Latitude</th>
+                <th scope="col">Longitude</th>
+                <th scope="col">MAG</th>
+                <th scope="col">ID</th>
+                <th scope="col">Place</th>
+                <th scope="col">Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in result %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[6] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid py-5">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['bar']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Name', 'Cost'],
+                    {% for item in data %}
+                        ['{{ item[0] }}',{{ item[1] }}],
+                    {% endfor %}
+                ]);
+
+                var options = {
+                    chart: {
+                        title: 'Name and Cost',
+                    },
+                    bars: 'vertical',
+                    colors: ['#2196F3'],
+                    height: window.innerHeight * 0.85,
+                    bar: {groupWidth: "90%"},
+                    legend: { position: "none" },
+                };
+
+                var chart = new google.charts.Bar(document.getElementById('chart'));
+
+                function resize () {
+                    var chartDiv = document.getElementById('chart');
+                    var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+                    chartDiv.style.width = window.innerWidth+'px';
+                    chartDiv.style.height = viewHeight+'px';
+                    chart.draw(data, google.charts.Bar.convertOptions(options));
+                }
+                window.onload = resize();
+                window.onresize = resize;
+            }
+        </script>
+        <div id="chart"></div>
+    </div>
+{% endblock %}

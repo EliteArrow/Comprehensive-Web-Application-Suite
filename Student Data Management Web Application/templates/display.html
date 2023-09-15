@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+    <title>Display</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <center><h3>Student Data Management Web Application</h3></center><br/><br/>
+    <center>
+<div>
+    {%if name%}
+    <form action="/updatedetails" method="post" enctype="multipart/form-data">
+        Name: <input type="text" name="name" value="{{ name }}"/><br/>
+        Grade: <input type="text" name="grade"/><br/>
+        Room: <input type="text" name="room"/><br/>
+        State: <input type="text" name="state"/><br/>
+        Picture: <input type="text" name="picture"/><br/>
+        Keywords: <input type="text" name="keywords"/><br/>
+        <input type="submit" value="Submit">
+    </form>
+    {%endif%}
+    {%if error%}
+        {{error}}
+    {%endif%}
+    {%if update%}
+        {{update}}
+    {%endif%}
+</div>
+</center>
+</body>
+</html>

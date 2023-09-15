@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<center><h3>Student Data Management Web Application</h3></center><br/><br/>
+<center><img src=static/cat.jpg alt='Preview' width='200' height='240'></center>
+<center>
+    <h3>Q11. Name and Descript and Picture from Room Number.</h3>
+    <form action="/room" method="post">
+        Enter Room No. :- <input type="text" name="room"><br/>
+        <input type="submit" Value="Submit"/>
+    </form><br/><br/>
+
+<h3>Q12. Name, Telephone number, Description and Pictures between Telephone numbers.</h3>
+<form action="/teln" method="post">
+    Enter teln 1. :- <input type="text" name="t1"><br/>
+    Enter teln 2. :- <input type="text" name="t2"><br/>
+    <input type="submit" Value="Submit"/>
+</form><br/><br/>
+
+<h3>Q13. Upadate Description using Telephone Number.</h3>
+<form action="/editdes" method="post">
+    Enter Telephone number : <input type="text" name="teln"/><br/><br/>
+    <input type="submit" value="Submit"/>
+  </form><br/><br/>
+
+  <h3>Bonus: Add Users.</h3>
+  <form action="/editdetails" method="post">
+      Enter Name:- <input type="text" name="name"><br/>
+      Enter Room:- <input type="text" name="room"><br/>
+      Enter teln:- <input type="text" name="teln"><br/>
+      Enter descript:- <input type="text" name="descript"><br/>
+      Enter new name(for update):- <input type="text" name="new_name"><br/>
+      <input type="submit" Value="Submit"/>
+  </form>
+
+
+</center>
+</body>
+</html>

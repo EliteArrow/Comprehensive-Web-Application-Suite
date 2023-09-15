@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Records by Magnitude & Depth Range{% endblock %}
+{% block content %}
+    <div class="container-fluid py-5">
+        {% if form != Null %}
+            <div class="form-group">
+            <form action="/form3" method="POST" class="mb-3">
+                {{ form.csrf_token() }}
+                    {{ form.m1.label }} {{ form.m1 }}
+                    {{ form.m2.label }} {{ form.m2 }}
+                    {{ form.d1.label }} {{ form.d1 }}
+                    {{ form.d2.label }} {{ form.d2 }}
+                {{ form.submit }}
+            </form>
+            </div>
+        {% endif %}
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        {% if data == 1 %}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Records</h4>
+                <p>Total records: {{ cnt }}</p>
+            </div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'Magnitude');
+                    data.addColumn('number', 'Depth');
+                    data.addColumn({type:'string', role:'tooltip'});
+
+                    {% for k,v in result.items() %}
+                        data.addRows([[{{ v[0] }},{{ v[1] }},'Magnitude: '+{{ v[0] }}+' Depth: '+{{ v[1] }}]]);
+                    {% endfor %}
+
+                    var options = {
+                        title: 'Magnitude Vs. Depth Comparison Scatter Graph.',
+                        hAxis: {title: 'Magnitude', minValue: {{ m1 }}, maxValue: {{ m2 }} + 1 },
+                        vAxis: {title: 'Depth', minValue: {{ d1 }}, maxValue: {{ d2 }} + 1 },
+                        legend: 'none',
+                        pointSize: 3
+                    };
+
+                    var chart = new google.visualization.ScatterChart(document.getElementById('graph'));
+
+                    function resize () {
+                        var chartDiv = document.getElementById('graph');
+                        var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+                        chartDiv.style.width = window.innerWidth+'px';
+                        chartDiv.style.height = viewHeight+'px';
+                        chart.draw(data, options);
+                    }
+
+                    window.onload = resize();
+                    window.onresize = resize;
+                }
+            </script>
+
+            <div id="graph" style="width: 80vw; height: 80vh;" ></div>
+
+        {% endif %}
+    </div>
+{% endblock %}

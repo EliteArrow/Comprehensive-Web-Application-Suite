@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Records by Depth Range{% endblock %}
+{% block content %}
+    <div class="container-fluid py-5">
+        {% if form != Null %}
+            <div class="form-group">
+                <form action="/form2" method="POST" class="mb-3">
+                    {{ form.csrf_token() }}
+                    <div class="mb-3">
+                        {{ form.d1.label(class="form-label") }}
+                        {{ form.d1(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.d2.label(class="form-label") }}
+                        {{ form.d2(class="form-control") }}
+                    </div>
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+            </div>
+        {% endif %}
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        {% if data == 1 %}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Records</h4>
+                <p>{{ result }}</p>
+                <hr>
+                <p class="mb-0">Total records: {{ cnt }}</p>
+            </div>
+
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script type="text/javascript">
+                window.onload = function() {
+                    var ctx = document.getElementById('graph').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [{% for k,v in result.items() %}'{{ k }}',{% endfor %}],
+                            datasets: [{
+                                label: 'Count',
+                                data: [{% for k,v in result.items() %}{{ v }},{% endfor %}],
+                                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                                borderColor: 'rgb(75, 192, 192)',
+                                borderWidth: 3,
+                                borderRadius: 7
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                };
+            </script>
+
+            <div style="width:80%; height:80%; margin: auto;">
+                <canvas id="graph"></canvas>
+            </div>
+
+        {% endif %}
+    </div>
+{% endblock %}

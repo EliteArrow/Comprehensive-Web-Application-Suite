@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+    <title>Distel</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <center><h3>Student Data Management Web Application</h3></center><br/><br/>
+<center>
+<div>
+    {%if name%}
+    <form action="/updatedes" method="post" enctype="multipart/form-data">
+        Telephone Number: <input type="text" name="teln" value="{{ teln }}"/><br/>
+        Description: <input type="text" name="descript"/><br/>
+        <input type="submit" value="Submit">
+    </form>
+    {%endif%}
+    {%if error%}
+        {{error}}
+    {%endif%}
+    {%if update%}
+        {{update}}
+    {%endif%}
+</div>
+</center>
+</body>
+</html>

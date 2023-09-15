@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head xmlns="http://www.w3.org/1999/html">
+    <title>Search by Salary</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <center><h4>CSV Data Viewer</h4></center><br/><br/>
+<center>
+<table style="border: 1px solid black; padding: 8px;">
+    <tr><td>1</td><td><a href="/">Home</a></td></tr>
+    <tr><td>2</td><td><a href="/upload">Upload CSV File.</a></td></tr>
+    <tr><td>3</td><td><a href="/search">Search image by Name.</a></td></tr>
+    <tr><td>4</td><td><a href="/searchbysal">All images where Salary is less then 99000.</a></td></tr>
+    <tr><td>5</td><td><a href="/remove">Remove Record.</a></td></tr>
+    <tr><td>6</td><td><a href="/edit">Edit Details.</a></td></tr>
+    <tr><td>7</td><td><a href="/uploadpic">Upload Image.</a></td></tr>
+</table><br/><br/><br/>
+
+<div>
+    {%if message%}
+        <div id="displayImages"></div>
+
+            {% for t in image_path %}
+                <img src={{t}} alt='Preview' width='100' height='120'>
+            {% endfor %}
+
+    {%endif%}
+    {%if error%}
+        {{error}}
+    {%endif%}
+</div>
+</center>
+</body>
+</html>

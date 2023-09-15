@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Insert Data{% endblock %}
+{% block content %}
+    <div class="container-fluid py-5">
+        <form method="POST" class="form-group">
+            {{ form.hidden_tag() }}
+                {{ form.name.label(class="form-label") }} {{ form.name(class="form-label") }}
+                {{ form.abb.label(class="form-label") }} {{ form.abb(class="form-label") }}
+                {{ form.year.label(class="form-label") }} {{ form.year(class="form-label") }}
+                {{ form.cost.label(class="form-label") }} {{ form.cost(class="form-label") }}
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+{% endblock %}

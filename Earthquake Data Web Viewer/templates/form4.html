@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Magnitude Records by Category{% endblock %}
+{% block content %}
+    <div class="container-fluid py-5">
+
+        <div class="form-group">
+            <form action="/form4" method="POST" class="mb-3">
+                <label for="type" class="form-label">Select Category:</label>
+                <select name="type" id="type" class="form-select">
+                    <option value="earthquake">Earthquake</option>
+                    <option value="ice quake">Ice Quake</option>
+                    <option value="explosion">Explosion</option>
+                    <option value="quarry blast">Quarry Blast</option>
+                    <option value="other event">Other Event</option>
+                </select><br/>
+                <input type="submit" value="Submit" class="btn btn-primary mt-2"/>
+            </form>
+        </div>
+
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        {% if data == 1 %}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Total records:</h4>
+                <p class="mb-0">{{ cnt }}</p>
+            </div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load("current", {packages:["corechart"]});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Magnitude Type','Magnitude Value'],
+                        {% for k,v in result.items() %}
+                            ['{{ k }}',{{ v }}],
+                        {% endfor %}
+                    ]);
+
+                    var options = {
+                        title: 'Magnitude Records by Category - {{ type }}',
+                        pieHole: 0.4,
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('graph'));
+
+                    function resize () {
+                        var chartDiv = document.getElementById('graph');
+                        var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+                        chartDiv.style.width = window.innerWidth+'px';
+                        chartDiv.style.height = viewHeight+'px';
+                        chart.draw(data, options);
+                    }
+
+                    window.onload = resize();
+                    window.onresize = resize;
+                }
+            </script>
+
+            <div id="graph" class="container-small my-5"></div>
+
+        {% endif %}
+    </div>
+{% endblock %}

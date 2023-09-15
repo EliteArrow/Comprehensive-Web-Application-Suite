@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Records by Magnitude{% endblock %}
+{% block content %}
+    <div class="container-fluid py-5">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        {% if data == 1 %}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Records</h4>
+                <p>{{ result }}</p>
+                <hr>
+                <p class="mb-0">Total records: {{ cnt }}</p>
+            </div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Magnitude Type','Magnitude Value'],
+                        {% for k,v in result.items() %}
+                            ['{{ k }}',{{ v }}],
+                        {% endfor %}
+                    ]);
+
+                    var options = {
+                        title: 'Earthquake Records by Magnitude',
+                        pieHole: 0.4,  // Makes it a donut chart
+                        chartArea: {
+                            left: "10%",
+                            top: "20%",
+                            height: "70%",
+                            width: "80%"
+                        },
+                        slices: {
+                            0: { color: '#8ecae6' },
+                            1: { color: '#219ebc' },
+                            2: { color: '#023047' },
+                            3: { color: '#ffb703' },
+                            4: { color: '#fb8500' },
+                            5: { color: '#000000' }
+                        }
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('graph'));
+
+                    function resize () {
+                        var chartDiv = document.getElementById('graph');
+                        var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+                        chartDiv.style.width = window.innerWidth+'px';
+                        chartDiv.style.height = viewHeight+'px';
+                        chart.draw(data, options);
+                    }
+
+                    window.onload = resize();
+                    window.onresize = resize;
+
+                }
+            </script>
+
+            <div id="graph" class="container-small my-5"></div>
+
+        {% endif %}
+    </div>
+{% endblock %}

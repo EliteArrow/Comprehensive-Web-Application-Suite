@@ -1,0 +1,6 @@
+pyodbc
+flask-wtf
+wtforms
+geopy
+gunicorn
+datetime

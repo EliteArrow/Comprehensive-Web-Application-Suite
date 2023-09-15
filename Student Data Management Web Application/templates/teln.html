@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+    <title>Teln</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <center><h3>Student Data Management Web Application</h3></center><br/><br/>
+<center>
+<div>
+
+  {%if message%}
+  {% for person in data %}
+  <div>
+    <h4>{{ person.name }}</h4>
+    <h4>{{ person.teln }}</h4>
+    <h4>{{ person.descript }}</h4>
+    <img src={{ person.path }} alt="Preview" width="500" height="600">
+    
+  </div>
+  {% endfor %}
+  {%endif%}
+
+  {%if error%}
+    {{error}}
+  {%endif%}
+
+</div>
+</center>
+</body>
+</html>

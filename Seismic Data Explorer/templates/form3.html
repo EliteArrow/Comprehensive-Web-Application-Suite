@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Form 3{% endblock %}
+{% block content %}
+{% if error %}
+<font color="red"> <center><h4><p class="">{{ error }}</p></h4></center></font>
+{% endif %}
+<div class="form-group">
+    <form action="/form3" method="POST">
+        {{ form.csrf_token }}
+        {{ form.net_value.label }} {{ form.net_value }}<br/>
+        {{ form.mag_min.label }} {{ form.mag_min }}<br/>
+        {{ form.mag_max.label }} {{ form.mag_max }}<br/>
+        {{ form.increment.label }} {{ form.increment }}<br/>
+        {{ form.submit }}
+    </form>
+</div>
+{% if data == 1 %}
+<p>Total Earthquakes Updated: {{count}}</p>
+<center>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Time</th>
+                <th scope="col">Latitude</th>
+                <th scope="col">Longitude</th>
+                <th scope="col">Updated Mag</th>
+                <th scope="col">Net</th>
+                <th scope="col">Place</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for quake in earthquakes %}
+            <tr>
+                <td>{{ quake[0] }}</td>
+                <td>{{ quake[1] }}</td>
+                <td>{{ quake[2] }}</td>
+                <td>{{ quake[3] }}</td>
+                <td>{{ quake[4] }}</td>
+                <td>{{ quake[5] }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</center>
+{% endif %}
+{% endblock %}

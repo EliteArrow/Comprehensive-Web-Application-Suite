@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <center><h3>Student Data Management Web Application</h3></center<br/><br/>
+<center>
+<div>
+
+  {%if message%}
+  {% for room in data %}
+  <div>
+  <h4>{{ room.name }}</h4>
+  <h4>{{ room.descript }}</h4>
+  <img src={{ room.path }} alt="Preview" width="500" height="600">
+  </div>
+  {% endfor %}
+  {%endif%}
+
+  {%if error%}
+    {{error}}
+  {%endif%}
+
+</div>
+</center>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Form 5{% endblock %}
+{% block content %}
+{% if error %}
+<font color="red"> <center><h4><p class="">{{ error }}</p></h4></center></font>
+{% endif %}
+{% if success %}
+<font color="#1e90ff"> <center><h4><p class=""><p class="success">{{ success }}</p>
+{% endif %}
+<div class="form-group">
+    <form action="/form5" method="POST">
+        {{ form.csrf_token }}
+        {{ form.time.label }} {{ form.time }}<br/>
+        {{ form.submit }}
+    </form>
+</div>
+{% endblock %}

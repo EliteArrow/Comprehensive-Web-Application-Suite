@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Form 4{% endblock %}
+{% block content %}
+{% if error %}
+<font color="red"> <center><h4><p class="">{{ error }}</p></h4></center></font>
+{% endif %}
+{% if success %}
+<font color="#1e90ff"> <center><h4><p class=""><p class="success">{{ success }}</p>
+{% endif %}
+<center><h3>Add new earthquake data</h3></center>
+<div class="form-group">
+    <form action="/form4" method="POST">
+        {{ form.csrf_token }}
+        {{ form.time.label }} {{ form.time }}<br/>
+        {{ form.latitude.label }} {{ form.latitude }}<br/>
+        {{ form.longitude.label }} {{ form.longitude }}<br/>
+        {{ form.mag.label }} {{ form.mag }}<br/>
+        {{ form.net.label }} {{ form.net }}<br/>
+        {{ form.place.label }} {{ form.place }}<br/>
+        {{ form.submit }}
+    </form>
+</div>
+{% endblock %}
