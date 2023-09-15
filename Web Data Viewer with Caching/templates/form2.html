@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Q2{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        {% if form != Null %}
+            <div class="form-group">
+                <form action="/form2" method="POST">
+                    {{ form.csrf_token() }}
+                    {{ form.num.label }} {{ form.num }}<br/>
+                    {{ form.mag1.label }} {{ form.mag1 }}<br/>
+                    {{ form.mag2.label }} {{ form.mag2 }}<br/>
+                    {{ form.submit }}
+                </form>
+            </div><br/><br/>
+        {% endif %}
+        {% if error %}
+            <h4>{{ error }}</h4>
+        {% endif %}
+        {% if data == 1 %}
+            <h3>Query Execution Time for {{num}} rows where Magnitude between {{mag1}} and {{mag2}} using <b>RDB SQL - Without Cache</b> is <b>{{diff1}}</b> seconds.</h3>
+            <h3>Query Execution Time for {{num}} rows where Magnitude between {{mag1}} and {{mag2}} using <b>RDB SQL - With Cache</b> is <b>{{diff2}}</b> seconds.</h3>
+        {% endif %}
+    </div>
+{% endblock %}

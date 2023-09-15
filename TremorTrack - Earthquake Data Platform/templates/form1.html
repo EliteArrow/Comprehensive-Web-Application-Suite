@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Q10{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        {% if form != Null %}
+            <div class="form-group">
+                <form action="/form1" method="POST">
+                    {{ form.csrf_token() }}
+                    {{ form.start_time.label }} {{ form.start_time }}<br/>
+                    {{ form.end_time.label }} {{ form.end_time }}<br/>
+                    {{ form.submit }}
+                </form>
+            </div><br/><br/>
+        {% endif %}
+        {% if error %}
+            <font color="red"> <center><h4><p class="">{{ error }}</p></h4></center></font>
+        {% endif %}
+        {% if quakes %}
+            <h3>Total Query Execution Time is(Using cache) <b>{{total_time}}</b> seconds.</h3>
+            <h3>Average Time per Tuple is(Using cache) <b>{{time_per_tuple}}</b> seconds.</h3>
+            <table>
+                <tr>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Place</th>
+                    <th>Time</th>
+                </tr>
+                {% for quake in quakes %}
+                    <tr>
+                        <td>{{ quake[0] }}</td>
+                        <td>{{ quake[1] }}</td>
+                        <td>{{ quake[2] }}</td>
+                        <td>{{ quake[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

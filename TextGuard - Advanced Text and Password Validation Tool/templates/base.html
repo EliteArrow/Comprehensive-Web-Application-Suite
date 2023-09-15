@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <div class="container-small">
+        <div class="jumbotron text-center">
+            <center>
+                <h3>TextGuard: Advanced Text and Password Validation Tool</h3>
+            </center>
+        </div>
+    </div>
+</head>
+<body>
+<div class=" container-fluid">
+    <nav class="navbar navbar-inverse justify-content-center">
+        <ul class="nav navbar-nav">
+            <li class="nav-item"><a class="navbar-brand" href="/">Home</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/admin_config">Password Admin</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/validate_password">Password Checker </a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/censor_config">Censor Configuration</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/submit_text">Speech Analysis</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/text_validator_config">text validity Config</a></li>
+            <li class="nav-item"><a class="navbar-brand" href="/validate_text">text validity Checker</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="container-fluid">
+    {% block content %}
+    {% endblock %}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <center><h2>Search Engine</h2></center>
+    <div class="form-group">
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <label for="query">Search Query:</label><br>
+            {{ form.query(class="form-control") }}
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if results %}
+    <h2>Search Results:</h2>
+    <h3>Total files matched: {{ results|length }}</h3>
+    <p style="color:gray;">Elapsed time: {{ elapsed_time }} seconds</p>
+    {% for filename, lines in results.items() %}
+        <h4><i class="fas fa-file-alt"></i> {{ filename }}: {{ lines|length }} lines matched</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Line Numbers: Lines</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for line in lines %}
+                    <tr>
+                        <td>{{ line[1] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

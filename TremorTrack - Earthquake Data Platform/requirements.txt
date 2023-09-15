@@ -1,0 +1,4 @@
+flask_wtf
+pyodbc
+redis
+wtforms

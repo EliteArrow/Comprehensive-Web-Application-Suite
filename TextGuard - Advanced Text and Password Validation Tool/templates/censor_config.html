@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Configure Censorship Rules</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.banned_words.label }}<br/>{{ form.banned_words }}<br/>
+        {{ form.banned_phrases.label }}<br/>{{ form.banned_phrases }}<br/>
+        {{ form.max_value.label }}<br/>{{ form.max_value }}<br/>
+        {{ form.submit() }}
+    </form>
+{% endblock %}

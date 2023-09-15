@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="form-group">
+            <form action="/admin_config" method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.min_length.label }}<br/>{{ form.min_length }}<br/>
+                {{ form.valid_chars.label }}<br/>{{ form.valid_chars }}<br/>
+                {{ form.submit }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

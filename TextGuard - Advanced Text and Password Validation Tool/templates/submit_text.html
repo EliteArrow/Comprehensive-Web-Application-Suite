@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="form-group">
+            <form action="/submit_text" method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.text.label }}<br/>
+                {{ form.text(cols="30", rows="10") }}<br/>
+                {{ form.submit }}
+            </form>
+        </div>
+        <br/><br/>
+        {% if censored_text %}
+            <h3>Censored Text</h3>
+            <textarea cols="30" rows="10" readonly>{{ censored_text }}</textarea>
+        {% endif %}
+        {% if alert_message %}
+            <div class="alert alert-danger">
+                {{ alert_message }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

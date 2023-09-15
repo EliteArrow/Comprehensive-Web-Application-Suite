@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Q1{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        {% if form != Null %}
+            <div class="form-group">
+                <form action="/form1" method="POST">
+                    {{ form.csrf_token() }}
+                    {{ form.num.label }} {{ form.num }}<br/>
+                    {{ form.submit }}
+                </form>
+            </div><br/><br/>
+        {% endif %}
+        {% if error %}
+            <font color="red"> <center><h4><p class="">{{ error }}</p></h4></center></font>
+        {% endif %}
+        {% if data == 1 %}
+            <h3>Query Execution Time for {{num}} rows using <b>RDB SQL - Without Cache</b> is <b>{{diff1}}</b> seconds.</h3>
+            <h3>Query Execution Time for {{num}} rows using <b>RDB SQL - With Cache</b> is <b>{{diff2}}</b> seconds.</h3>
+        {% endif %}
+    </div>
+{% endblock %}

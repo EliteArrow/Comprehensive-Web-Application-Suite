@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Q12{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        {% if form != Null %}
+            <div class="form-group">
+                <form action="/form3" method="POST">
+                    {{ form.csrf_token() }}
+                    {{ form.net.label }} {{ form.net }}<br/>
+                    {{ form.min_time.label }} {{ form.min_time }}<br/>
+                    {{ form.max_time.label }} {{ form.max_time }}<br/>
+                    {{ form.decrement.label }} {{ form.decrement }}<br/>
+                    {{ form.submit }}
+                </form>
+            </div><br/><br/>
+        {% endif %}
+        {% if error %}
+            <font color="red"> <center><h4><p class="">{{ error }}</p></h4></center></font>
+        {% endif %}
+        {% if quakes %}
+            <h3>Number of quakes updated: {{count}}</h3>
+            <h3>Query Execution Time is <b>{{query_time}}</b> seconds.</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Time</th>
+                    <th scope="col">Latitude</th>
+                    <th scope="col">Longitude</th>
+                    <th scope="col">Magnitude</th>
+                    <th scope="col">Net</th>
+                    <th scope="col">Place</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for quake in quakes %}
+                    <tr>
+                        <td>{{ quake[0] }}</td>
+                        <td>{{ quake[1] }}</td>
+                        <td>{{ quake[2] }}</td>
+                        <td>{{ quake[3] }}</td>
+                        <td>{{ quake[4] }}</td>
+                        <td>{{ quake[5] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

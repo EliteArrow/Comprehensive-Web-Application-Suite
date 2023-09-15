@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Validate Text</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.text.label }}<br/>{{ form.text }}<br/>
+        {{ form.submit() }}
+    </form>
+    {% if result %}
+        <p>Validation Result: {{ result }}</p>
+    {% endif %}
+{% endblock %}

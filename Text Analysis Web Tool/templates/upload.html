@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="form-group">
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                {{ form.textfile.label }} {{ form.textfile }}<br/>
+                {{ form.submit }}
+            </form>
+        </div><br/><br/>
+        {% if success_message %}
+            <div class="alert alert-success">
+                {{ success_message }}
+            </div>
+        {% endif %}
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

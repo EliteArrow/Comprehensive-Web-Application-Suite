@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Text Validator Configuration</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.min_words.label }}<br/>{{ form.min_words }}<br/>
+        {{ form.max_words.label }}<br/>{{ form.max_words }}<br/>
+        {{ form.max_part_words.label }}<br/>{{ form.max_part_words }}<br/>
+        {{ form.max_length.label }}<br/>{{ form.max_length }}<br/>
+        {{ form.submit() }}
+    </form>
+{% endblock %}
